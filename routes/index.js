@@ -17,6 +17,13 @@ router.get('/register', function(req, res) {
     res.render('register', { });
 });
 
+router.get('/orders', function (req, res) {
+    res.render('invoice_list', { user : req.user });
+});
+
+router.get('/menus', function (req, res) {
+    res.render('menu_list', { user : req.user });
+});
 router.post('/register', function(req, res, next) {
   console.log(req.body.City);
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
