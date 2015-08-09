@@ -85,7 +85,7 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/');
+        res.redirect('/orders');
     });
 });
 
@@ -155,9 +155,10 @@ router.get( '/account/:id', function( request, response ) {
 router.post( '/vendor/menu/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("post /vendor/menu/");
+     console.log(request.body);
   console.log(request.params.id);
    // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
-     return VendorInfoModel.update({ 'hotel.email':request.params.id},{ $addToSet: {menu: [{name: "chapathi",  price:10}] }},function( err, order ) {
+     return VendorInfoModel.update({ 'hotel.email':'satya@gmail.com'},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
         if( !err ) {
             console.log("no error");
             console.log(order);
@@ -169,6 +170,27 @@ router.post( '/vendor/menu/:id', function( request, response ) {
     });
  // });
 });
+
+router.post( '/vendor/menu/', function( request, response ) {
+  // OrderModel.findById( request.params.id, function( err, book ) 
+     console.log("post /vendor/menu/");
+     console.log(request.body.fooditem);
+     console.log(request.body.foodprice);
+  console.log(request.params.id);
+   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
+     return VendorInfoModel.update({ 'hotel.email':'satya@gmail.com'},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
+        if( !err ) {
+            console.log("no error");
+            console.log(order);
+            return response.send( order );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+ // });
+});
+
 router.get( '/vendor/menu/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("get /vendor/menu/");
