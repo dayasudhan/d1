@@ -66,6 +66,7 @@ console.log("storeVendorInfo");
     });
 }
 
+
 router.get('/login', function(req, res) {
     res.render('login', { user : req.user });
 });
@@ -142,6 +143,40 @@ router.get( '/account/:id', function( request, response ) {
  // });
 });
 
+router.post( '/vendor/menu/:id', function( request, response ) {
+  // OrderModel.findById( request.params.id, function( err, book ) 
+     console.log("post /vendor/menu/");
+  console.log(request.params.id);
+   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
+     return VendorInfoModel.update({ 'hotel.email':request.params.id},{ $addToSet: {menu: [{name: "chapathi",  price:10}] }},function( err, order ) {
+        if( !err ) {
+            console.log("no error");
+            console.log(order);
+            return response.send( order );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+ // });
+});
+router.get( '/vendor/menu/:id', function( request, response ) {
+  // OrderModel.findById( request.params.id, function( err, book ) 
+     console.log("get /vendor/menu/");
+  console.log(request.params.id);
+   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
+     return VendorInfoModel.find({ 'hotel.email':request.params.id},function( err, order ) {
+        if( !err ) {
+             console.log("no error");
+            console.log(order);
+            return response.send( order );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+ // });
+});
 router.get( '/vendor/list/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("dasd");
