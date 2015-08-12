@@ -45,7 +45,7 @@ passport.deserializeUser(Account.deserializeUser());
 var uristring = 
   process.env.MONGOLAB_URI || 
   process.env.MONGOHQ_URL || 
-  'mongodb://localhost/passport_local_mongoose_express4';
+  'mongodb://localhost/messoota';
 
 // mongoose
 mongoose.connect(uristring,function (err, res) {
