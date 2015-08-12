@@ -41,7 +41,7 @@ router.post('/register', function(req, res, next) {
                 if (err) {
                     return next(err);
                 }
-                res.redirect('/');
+                res.redirect('/orders');
             });
         });
       });
@@ -50,15 +50,8 @@ router.post('/register', function(req, res, next) {
 function storeVendorInfo(request,response,callback)
 {
 console.log("storeVendorInfo");
- // var vendorInfo = new VendorInfoModel({
- //        hotel:{name:request.body.name,email:request.body.username},
- //        menu:[{name: "Idly",  price:10},{name: "Dosa",  price:10}],
- //       address:{addressLine1:"String",addressLine2:"String",street:"String", LandMark:"String", areaName:"String",city:"String", zip:"String", latitude:123,longitude:321 },
- //        phone:request.body.phone 
- //      });
  var vendorInfo = new VendorInfoModel({
         hotel:{name:request.body.Name,email:request.body.username},
-        menu:[{name: "Idly",  price:10},{name: "Dosa",  price:10}],
        address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, latitude:123,longitude:321 },
         phone:request.body.phone 
       });
@@ -105,7 +98,7 @@ router.get('/ping', function(req, res){
 
 
 
-router.get( '/vendor/city/:id', function( request, response ) {
+router.get( '/v1/vendor/city/:id', function( request, response ) {
     return VendorInfoModel.find({ 'address.city':request.params.id},function( err, vendor ) {
         if( !err ) {
             return response.send( vendor );
@@ -116,7 +109,7 @@ router.get( '/vendor/city/:id', function( request, response ) {
     });
 });
 
-router.get( '/vendor/account/all', function( request, response ) {
+router.get( '/v1/vendor/account/all', function( request, response ) {
     return VendorInfoModel.find(function( err, order ) {
         if( !err ) {
             return response.send( order );
@@ -126,7 +119,7 @@ router.get( '/vendor/account/all', function( request, response ) {
         }
     });
 });
-router.get( '/vendor/account/:id', function( request, response ) {
+router.get( '/v1/vendor/account/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("dasd");
   console.log(request.params.id);
@@ -142,11 +135,8 @@ router.get( '/vendor/account/:id', function( request, response ) {
  // });
 });
 
-router.get( '/vendor/list/:id', function( request, response ) {
-  // OrderModel.findById( request.params.id, function( err, book ) 
-     console.log("dasd");
+router.get( '/v1/vendor/order/:id', function( request, response ) {
   console.log(request.params.id);
-   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
      return OrderModel.find({ 'hotel.email':request.params.id},function( err, order ) {
         if( !err ) {
             return response.send( order );
@@ -157,7 +147,7 @@ router.get( '/vendor/list/:id', function( request, response ) {
     });
  // });
 });
-router.get( '/vendor/list/all', function( request, response ) {
+router.get( '/v1/vendor/order/all', function( request, response ) {
     return OrderModel.find(function( err, order ) {
         if( !err ) {
             return response.send( order );
@@ -168,7 +158,7 @@ router.get( '/vendor/list/all', function( request, response ) {
     });
 });
 
-router.post( '/vendor/list', function( request, response ) {
+router.post( '/v1/vendor/order', function( request, response ) {
 
 console.log(request.body);
 
@@ -191,7 +181,7 @@ console.log( request.body.hotel.name);
     });
 });
 
-router.get( '/vendor/order/summary', function( req, res ) {
+router.get( '/v1/vendor/order/summary', function( req, res ) {
    OrderModel.aggregate(
    {$group:{_id: '$menu.name',total:{$sum :'$menu.no_of_order'}}},
       function (err, summary) {
@@ -213,7 +203,7 @@ router.get( '/vendor/order/summary', function( req, res ) {
     )
 });
 
-router.get( '/vendor/order/summary/:id', function( request, res ) {
+router.get( '/v1/vendor/order/summary/:id', function( request, res ) {
    OrderModel.aggregate(
    [
     {$match: { 'hotel.email': request.params.id } },
@@ -238,7 +228,7 @@ router.get( '/vendor/order/summary/:id', function( request, res ) {
     )
 });
 
-router.post( '/vendor/list2', function( request, response ) {
+router.post( '/v1/vendor/list2', function( request, response ) {
 
     // var order = new OrderModel({
     //     customer: {name: request.body.name, email: request.body.email, phone: request.body.phone,  Address: "daya"},
@@ -260,7 +250,7 @@ router.post( '/vendor/list2', function( request, response ) {
     });
 });
 //Delete a book
-router.delete( '/vendor/list', function( request, response ) {
+router.delete( '/v1/vendor/list', function( request, response ) {
   //  ExampleModel.findById( request.params.id, function( err, book ) {
         return OrderModel.remove( {},function( err ) {
             if( !err ) {
@@ -312,7 +302,7 @@ module.exports = router;
 // response.send(data1);
 // });
 
-router.post( '/vendor/menu/:id', function( request, response ) {
+router.post( '/v1/vendor/menu/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("post /vendor/menu/");
      console.log(request.body);
@@ -331,7 +321,7 @@ router.post( '/vendor/menu/:id', function( request, response ) {
  // });
 });
 
-router.get( '/vendor/menu/:id', function( request, response ) {
+router.get( '/v1/vendor/menu/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("get /vendor/menu/");
   console.log(request.params.id);
@@ -350,7 +340,7 @@ router.get( '/vendor/menu/:id', function( request, response ) {
 });
 
 //unregister a book
-router.delete( '/vendor/unregister/:id', function( request, response ) {
+router.delete( '/v1/vendor/unregister/:id', function( request, response ) {
   //  ExampleModel.findById( request.params.id, function( err, book ) {
         return VendorInfoModel.remove( { 'hotel.email':request.params.id},function( err ) {
             if( !err ) {
@@ -365,7 +355,7 @@ router.delete( '/vendor/unregister/:id', function( request, response ) {
 });
 
 //Delete a menu item
-router.delete( '/vendor/menu/item/:id', function( request, response ) {
+router.delete( '/v1/vendor/menu/item/:id', function( request, response ) {
   //  ExampleModel.findById( request.params.id, function( err, book ) {
         return VendorInfoModel.update( { 'hotel.email':request.params.id},{ $pull: {menu: {"name": request.body.fooditem }}},function( err ) {
             if( !err ) {

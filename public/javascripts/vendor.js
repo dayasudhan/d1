@@ -6,7 +6,7 @@ function vendor(param)
 
   
     var postData={title:"231",city:"123"};
-    var url = "/vendor/list/";
+    var url = "/v1/vendor/order/";
     url = url + param;
     console.log(url);
     $.get(url,
@@ -37,7 +37,7 @@ function vendor(param)
 function menu_vendor(param)
 {
    console.log("vendor.js  -0--");
-    var url = "/vendor/menu/";
+    var url = "/v1/vendor/menu/";
     var postData={title:"sumne",city:"213"};
     url = url + param;
     console.log(url);
@@ -66,7 +66,7 @@ function menu_add(form,username) {
    
      console.log("vendor.js  menu_add");
       console.log(form);
-    var url = "/vendor/menu/";
+    var url = "/v1/vendor/menu/";
     var postData={fooditem:form.fooditem.value,foodprice:form.foodprice.value};
     url = url + username;
     console.log(url);
