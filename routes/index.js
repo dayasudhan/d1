@@ -59,7 +59,7 @@ console.log("storeVendorInfo");
  var vendorInfo = new VendorInfoModel({
         hotel:{name:request.body.Name,email:request.body.username},
         menu:[{name: "Idly",  price:10},{name: "Dosa",  price:10}],
-       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address1,street:request.body.Address1, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.Address1, latitude:123,longitude:321 },
+       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, latitude:123,longitude:321 },
         phone:request.body.phone 
       });
       vendorInfo.save( function( err ) {
@@ -104,16 +104,6 @@ router.get('/ping', function(req, res){
 });
 
 
-router.get( '/vendor/list/all', function( request, response ) {
-    return OrderModel.find(function( err, order ) {
-        if( !err ) {
-            return response.send( order );
-        } else {
-            console.log( err );
-            return response.send('ERROR');
-        }
-    });
-});
 
 router.get( '/vendor/city/:id', function( request, response ) {
     return VendorInfoModel.find({ 'address.city':request.params.id},function( err, vendor ) {
@@ -126,7 +116,7 @@ router.get( '/vendor/city/:id', function( request, response ) {
     });
 });
 
-router.get( '/account/all', function( request, response ) {
+router.get( '/vendor/account/all', function( request, response ) {
     return VendorInfoModel.find(function( err, order ) {
         if( !err ) {
             return response.send( order );
@@ -136,7 +126,7 @@ router.get( '/account/all', function( request, response ) {
         }
     });
 });
-router.get( '/account/:id', function( request, response ) {
+router.get( '/vendor/account/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("dasd");
   console.log(request.params.id);
@@ -152,62 +142,6 @@ router.get( '/account/:id', function( request, response ) {
  // });
 });
 
-router.post( '/vendor/menu/:id', function( request, response ) {
-  // OrderModel.findById( request.params.id, function( err, book ) 
-     console.log("post /vendor/menu/");
-     console.log(request.body);
-  console.log(request.params.id);
-   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
-     return VendorInfoModel.update({ 'hotel.email':'satya@gmail.com'},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
-        if( !err ) {
-            console.log("no error");
-            console.log(order);
-            return response.send( order );
-        } else {
-            console.log( err );
-            return response.send('ERROR');
-        }
-    });
- // });
-});
-
-router.post( '/vendor/menu/', function( request, response ) {
-  // OrderModel.findById( request.params.id, function( err, book ) 
-     console.log("post /vendor/menu/");
-     console.log(request.body.fooditem);
-     console.log(request.body.foodprice);
-  console.log(request.params.id);
-   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
-     return VendorInfoModel.update({ 'hotel.email':'satya@gmail.com'},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
-        if( !err ) {
-            console.log("no error");
-            console.log(order);
-            return response.send( order );
-        } else {
-            console.log( err );
-            return response.send('ERROR');
-        }
-    });
- // });
-});
-
-router.get( '/vendor/menu/:id', function( request, response ) {
-  // OrderModel.findById( request.params.id, function( err, book ) 
-     console.log("get /vendor/menu/");
-  console.log(request.params.id);
-   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
-     return VendorInfoModel.find({ 'hotel.email':request.params.id},function( err, order ) {
-        if( !err ) {
-             console.log("no error");
-            console.log(order);
-            return response.send( order );
-        } else {
-            console.log( err );
-            return response.send('ERROR');
-        }
-    });
- // });
-});
 router.get( '/vendor/list/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
      console.log("dasd");
@@ -223,16 +157,28 @@ router.get( '/vendor/list/:id', function( request, response ) {
     });
  // });
 });
+router.get( '/vendor/list/all', function( request, response ) {
+    return OrderModel.find(function( err, order ) {
+        if( !err ) {
+            return response.send( order );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+});
 
 router.post( '/vendor/list', function( request, response ) {
 
-console.log( request.body.name);
+console.log(request.body);
+
+console.log( request.body.hotel.name);
     var order = new OrderModel({
         hotel:{name:request.body.hotel.name,email:request.body.hotel.email},
         customer: {name: request.body.customer.name, email: request.body.customer.email, phone: request.body.customer.phone,  Address: "daya"},
         menu:{name: request.body.menu.name, no_of_order: request.body.menu.no_of_order }       });
  
-     console.log(request.body);
+    console.log(request.body);
     order.save( function( err ) {
         if( !err ) {
             console.log( 'created' );
@@ -244,6 +190,54 @@ console.log( request.body.name);
         }
     });
 });
+
+router.get( '/vendor/order/summary', function( req, res ) {
+   OrderModel.aggregate(
+   {$group:{_id: '$menu.name',total:{$sum :'$menu.no_of_order'}}},
+      function (err, summary) {
+        console.log("k1");
+        if(err){
+  console.log("k12");
+            return res.send(500, { error: err }); 
+        }
+
+        if(summary) {
+              console.log("k13");
+            return res.send(summary);
+        } else {
+              console.log("k14");
+            res.send(500, { error: 'couldnt find expenses' }); 
+        }
+          console.log("k15");
+    }
+    )
+});
+
+router.get( '/vendor/order/summary/:id', function( request, res ) {
+   OrderModel.aggregate(
+   [
+    {$match: { 'hotel.email': request.params.id } },
+    {$group:{_id: '$menu.name',total:{$sum :'$menu.no_of_order'}}}
+   ],
+      function (err, summary) {
+        console.log("k1");
+        if(err){
+  console.log("k12");
+            return res.send(500, { error: err }); 
+        }
+
+        if(summary) {
+              console.log("k13");
+            return res.send(summary);
+        } else {
+              console.log("k14");
+            res.send(500, { error: 'couldnt find expenses' }); 
+        }
+          console.log("k15");
+    }
+    )
+});
+
 router.post( '/vendor/list2', function( request, response ) {
 
     // var order = new OrderModel({
@@ -317,3 +311,70 @@ module.exports = router;
 // ];
 // response.send(data1);
 // });
+
+router.post( '/vendor/menu/:id', function( request, response ) {
+  // OrderModel.findById( request.params.id, function( err, book ) 
+     console.log("post /vendor/menu/");
+     console.log(request.body);
+  console.log(request.params.id);
+   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
+     return VendorInfoModel.update({ 'hotel.email':request.params.id},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
+        if( !err ) {
+            console.log("no error");
+            console.log(order);
+            return response.send( order );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+ // });
+});
+
+router.get( '/vendor/menu/:id', function( request, response ) {
+  // OrderModel.findById( request.params.id, function( err, book ) 
+     console.log("get /vendor/menu/");
+  console.log(request.params.id);
+   // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
+     return VendorInfoModel.find({ 'hotel.email':request.params.id},function( err, vendorinfo ) {
+        if( !err ) {
+             console.log("no error");
+            console.log(vendorinfo[0].phone);
+            return response.send( vendorinfo[0].menu );
+        } else {
+            console.log( err );
+            return response.send('ERROR');
+        }
+    });
+ // });
+});
+
+//unregister a book
+router.delete( '/vendor/unregister/:id', function( request, response ) {
+  //  ExampleModel.findById( request.params.id, function( err, book ) {
+        return VendorInfoModel.remove( { 'hotel.email':request.params.id},function( err ) {
+            if( !err ) {
+                console.log( 'Book removed' );
+                return response.send( '' );
+            } else {
+                console.log( err );
+                return response.send('ERROR');
+            }
+        });
+    //});
+});
+
+//Delete a menu item
+router.delete( '/vendor/menu/item/:id', function( request, response ) {
+  //  ExampleModel.findById( request.params.id, function( err, book ) {
+        return VendorInfoModel.update( { 'hotel.email':request.params.id},{ $pull: {menu: {"name": request.body.fooditem }}},function( err ) {
+            if( !err ) {
+                console.log( 'Book removed' );
+                return response.send( '' );
+            } else {
+                console.log( err );
+                return response.send('ERROR');
+            }
+        });
+    //});
+});

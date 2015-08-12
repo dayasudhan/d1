@@ -8,6 +8,6 @@ var VendorInfoSchema = new mongoose.Schema({
     });
 
 //Model
-var VendorInfoModel = mongoose.model( 'vendorInfo', VendorInfoSchema );
+var VendorInfoModel = mongoose.model( 'VendorInfoSchema', VendorInfoSchema );
 
 module.exports = VendorInfoModel;

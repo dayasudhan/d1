@@ -1,12 +1,9 @@
 
-function vendor(param)
+function menu_vendor(param)
 {
   
    console.log("vendor.js  -0--");
-
-  
-    var postData={title:"jayamma",city:"kuruva"};
-    var url = "/vendor/list/";
+    var url = "/vendor/menu/";
     url = url + param;
     console.log(url);
     $.get(url,
@@ -18,9 +15,8 @@ function vendor(param)
         $.each(data, function (i, item) {
 
            if(item.customer != null)
-              trHTML += '<tr><td>' + item.customer.name + '</td><td>' + item.customer.email + '</td><td>' + item.customer.phone + '</td>';
-            if(item.menu != null)
-              trHTML += '<td>' + item.menu.name + '</td><td>'+item.menu.no_of_order + '</td></tr>';
+              trHTML += '<tr><td>' + item.name + '</td><td>' + item.price + '</td></tr>' ;
+        
          //    trHTML +='/tr';  
         });
         $('#t02').append(trHTML);
