@@ -22,8 +22,16 @@ router.get('/orders', function (req, res) {
     res.render('invoice_list', { user : req.user });
 });
 
+router.get('/order_summary', function (req, res) {
+    res.render('order_summary', { user : req.user });
+});
+
 router.get('/menus', function (req, res) {
     res.render('menu_list', { user : req.user });
+});
+
+router.get('/about_us', function (req, res) {
+    res.render('about_us', { user : req.user });
 });
 
 router.post('/register', function(req, res, next) {
@@ -263,44 +271,9 @@ router.delete( '/v1/vendor/list', function( request, response ) {
         });
     //});
 });
-// //Delete a book
-// app.delete( '/api/books/:id', function( request, response ) {
-//     ExampleModel.findById( request.params.id, function( err, book ) {
-//         return book.remove( function( err ) {
-//             if( !err ) {
-//                 console.log( 'Book removed' );
-//                 return response.send( '' );
-//             } else {
-//                 console.log( err );
-//                 return response.send('ERROR');
-//             }
-//         });
-//     });
-// });
-
-module.exports = router;
 
 
 
-// router.get( '/vendor/list2', function( request, response ) {
-//     var data1 =[  
-//    {  
-//       "customer":{  
-//          "name":"dayasudhan",
-//          "email":"dayasudhan@gmail.com",
-//          "phone":"123456"
-//       }
-//    },
-//    {  
-//       "customer":{  
-//          "name":"devrajkg",
-//          "email":"daya@gmail.com",
-//          "phone":"123456"
-//       }
-//    }
-// ];
-// response.send(data1);
-// });
 
 router.post( '/v1/vendor/menu/:id', function( request, response ) {
   // OrderModel.findById( request.params.id, function( err, book ) 
@@ -308,7 +281,7 @@ router.post( '/v1/vendor/menu/:id', function( request, response ) {
      console.log(request.body);
   console.log(request.params.id);
    // return OrderModel.find({ customer:{email:'daya@gmail.com'}},function( err, order ) {
-     return VendorInfoModel.update({ 'hotel.email':request.params.id},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice}] }}},function( err, order ) {
+     return VendorInfoModel.update({ 'hotel.email':request.params.id},{ $addToSet: {menu: {$each:[{name: request.body.fooditem,  price:request.body.foodprice,availability:1}] }}},function( err, order ) {
         if( !err ) {
             console.log("no error");
             console.log(order);
@@ -368,3 +341,6 @@ router.delete( '/v1/vendor/menu/item/:id', function( request, response ) {
         });
     //});
 });
+
+
+module.exports = router;

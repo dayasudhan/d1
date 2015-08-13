@@ -49,7 +49,36 @@ function menu_vendor(param)
         var trHTML = '';
         $.each(data, function (i, item) {
            if(item != null)
-              trHTML += '<tr><td>' + item.name + '</td><td>' + item.price + '</td></tr>' ;
+              trHTML += '<tr><td>' + item.name + '</td><td>' + item.price + '</td><td>'+
+      '<input type="checkbox" name="myTextEditBox" value="checked"> '+
+      '</td></tr>' ;
+        });
+        $('#t02').append(trHTML);
+          //data - JSON object from server.
+      },"json").fail(function(jqXHR, textStatus, errorThrown) 
+          {
+    console.log(textStatus);
+    console.log(errorThrown); 
+      });
+  //  });
+}
+
+function order_summary(param)
+{
+   console.log("vendor.js  -0--");
+    var url = "/v1/vendor/order/summary/";
+    var postData={title:"sumne",city:"213"};
+    url = url + param;
+    console.log(url);
+    $.get(url,
+      postData,
+      function(data, textStatus, jqXHR)
+      {
+       console.log("vl 1")
+        var trHTML = '';
+        $.each(data, function (i, item) {
+           if(item != null)
+              trHTML += '<tr><td>' + item._id + '</td><td>' + item.total + '</td></tr>' ;
         });
         $('#t02').append(trHTML);
           //data - JSON object from server.

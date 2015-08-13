@@ -2,7 +2,7 @@
       <tr>
         <td height="29" valign="middle"  background="images/inner_img100_18.jpg" class="heading100"  style="padding-left:5px;"  alt=""><table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td width="35%" height="19" class="tahoma_heading_12" style="padding-left:15px;"><b>Available Menu List</b> </td>
+              <td width="35%" height="19" class="tahoma_heading_12" style="padding-left:15px;"><b>Order Summary  </b> </td>
   
             </tr>
         </table></td>
@@ -15,15 +15,14 @@
                   <tr bgcolor="#EEEEEE" >
                    
                     <td ><b>Item Name</b></td>
-                    <td ><b>Item Price</b></td>
-                    <td ><b>Delete Item</b></td>
+                     <td ><b>Total Order</b></td>
                   </tr>
               </table></td>
             </tr>
             <tr >
               <td>
               <table width="100%" border="0" cellpadding="3" cellspacing="1" id="t02">
-                  <script>menu_vendor('<%= user.username %>');</script>
+                  <script>order_summary('<%= user.username %>');</script>
               </table>
               </td>
             </tr>
