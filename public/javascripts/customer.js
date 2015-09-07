@@ -51,31 +51,31 @@ angular.module("mainModule", [])
     };
     $scope.order = function() {
 
-console.log("order function");
+      console.log("order function 1");
+      console.log($scope.user);
+      console.log("order function 2");
        var ordMenu =  [];
-      // ordarr.hotel.name = $scope.hotel.name;
-      // ordarr.hotel.email = $scope.hotel.email;
-      // ordarr.menu.name = "dosa";
-      // ordarr.menu.no_of_order = 13;
-      // ordarr.customer.name = "daya";
-      // ordarr.customer.email = "daya@gmail.com";
-      // ordarr.customer.phone = "98798798";
-
-
-        angular.forEach($scope.hotel.menu, function(item) {
+       var isOrderPresent =  false;
+       angular.forEach($scope.hotel.menu, function(item) {
           var obj = new Object();
           if(item.qty > 0)
           {
             obj.name = item.name;
             obj.no_of_order = item.qty;
             ordMenu.push(obj);
+            isOrderPresent = true;
           }
         });
         var ordarr = {
          "hotel":{"name":$scope.hotel.hotel.name,"email": $scope.hotel.hotel.email},
           "menu":ordMenu,
-          "customer":{"name":"kumar","email": "rajkumar@gmail.com","phone":"958698234"}
+          "customer":{"name":$scope.user,"email": "","phone":$scope.phone},
+          "address":{"addressLine1":$scope.flat_no,"addressLine2":$scope.address,"street":"", 
+          "LandMark":$scope.landmark, "areaName":"","city":"", "zip":"", "latitude":0,"longitude":0}
         };
-        $scope.postOrder(ordarr);
+        if(isOrderPresent)
+        {
+          $scope.postOrder(ordarr);
+        }
     };
   });

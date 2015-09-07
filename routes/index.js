@@ -6,10 +6,16 @@ var VendorInfoModel = require('../models/vendorInfo');
 var router = express.Router();
 
 
-router.get('/', function (req, res) {
+router.get('/vendor', function (req, res) {
     res.render('index', { user : req.user });
 });
+router.get('/', function (req, res) {
+    res.render('customer', { user : req.user });
+});
 
+router.get('/test', function (req, res) {
+    res.render('test', { user : req.user });
+});
 router.get('/menu', function (req, res) {
     res.render('menu', { user : req.user });
 });
@@ -83,10 +89,31 @@ router.get('/login', function(req, res) {
 
 router.post('/login', passport.authenticate('local'), function(req, res, next) {
     req.session.save(function (err) {
+    
         if (err) {
             return next(err);
         }
         res.redirect('/orders');
+    });
+});
+router.post('/m/login', passport.authenticate('local'), function(req, res, next) {
+
+    req.session.save(function (err) {
+        
+      
+        if (err) {
+          var err_response = {
+                        tag: "login",
+                        status: false,
+                        error_msg: "Incorrect Email or Password"
+                        };
+            res.send(err_response);
+        }
+        var suc_response = {
+                        tag: "login",
+                        status: true
+                        };
+        res.send(suc_response);
     });
 });
 
@@ -172,9 +199,9 @@ console.log(request.body);
 
 console.log( request.body.hotel.name);
     var order = new OrderModel({
-        hotel:{name:request.body.hotel.name,email:request.body.hotel.email},
+        hotel:request.body.hotel,
         customer: {name: request.body.customer.name, email: request.body.customer.email, phone: request.body.customer.phone,  Address: "daya"},
-        menu:{name: request.body.menu.name, no_of_order: request.body.menu.no_of_order }       });
+        menu: request.body.menu       });
  
     console.log(request.body);
     order.save( function( err ) {
@@ -302,8 +329,10 @@ router.get( '/v1/vendor/menu/:id', function( request, response ) {
      return VendorInfoModel.find({ 'hotel.email':request.params.id},function( err, vendorinfo ) {
         if( !err ) {
              console.log("no error");
-            console.log(vendorinfo[0].phone);
-            return response.send( vendorinfo[0].menu );
+            if(vendorinfo.length > 0)
+              return response.send( vendorinfo[0].menu );
+            else
+              return response.send( vendorinfo );
         } else {
             console.log( err );
             return response.send('ERROR');
