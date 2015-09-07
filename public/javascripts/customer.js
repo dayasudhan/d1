@@ -4,7 +4,7 @@ angular.module("mainModule", [])
     $scope.findRestaurants = function () {
       console.log("findRestaurants");
       var url = "/v1/vendor/city/";
-      url = url + $scope.areaname;
+      url = url + $scope.search_city;
       $http.get(url)
         .success(function (data, status, headers, config)
         {
