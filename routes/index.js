@@ -182,6 +182,20 @@ router.get( '/v1/vendor/order/:id', function( request, response ) {
     });
  // });
 });
+//unregister a book
+router.delete( '/v1/vendor/order/:id', function( request, response ) {
+  //  ExampleModel.findById( request.params.id, function( err, book ) {
+        return OrderModel.remove( { 'hotel.email':request.params.id},function( err ) {
+            if( !err ) {
+                console.log( 'orders removed' );
+                return response.send( '' );
+            } else {
+                console.log( err );
+                return response.send('ERROR');
+            }
+        });
+    //});
+});
 router.get( '/v1/vendor/order/all', function( request, response ) {
     return OrderModel.find(function( err, order ) {
         if( !err ) {

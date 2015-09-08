@@ -20,8 +20,18 @@ function vendor(param)
            if(item.customer != null)
               trHTML += '<tr><td>' + item.customer.name + '</td><td>' + item.customer.email + '</td><td>' + item.customer.phone + '</td>';
             if(item.menu != null)
-              trHTML += '<td>' + item.menu.name + '</td><td>'+item.menu.no_of_order + '</td></tr>';
-         //    trHTML +='/tr';  
+            {
+              $.each(item.menu, function (j, itemmenu) {
+                if(j != 0 )
+                {
+                  trHTML +='<tr>';
+                }  
+                trHTML += '<td>' + itemmenu.name + '</td><td>'+itemmenu.no_of_order + '</td>';
+              });
+              trHTML +='</tr>';
+            }
+             trHTML +='/tr';  
+           
         });
         $('#t02').append(trHTML);
           //data - JSON object from server.
