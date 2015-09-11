@@ -5,7 +5,7 @@
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="robots" content="index, follow">
-            <title>Dlapak - General Listing Template</title>
+            <title>Khannavali - Online food order</title>
             <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:regular,700,600&amp;latin" type="text/css" />
             <!-- Essential styles -->
             <link rel="stylesheet" href="http://themes.gie-art.com/dlapak/assets/bootstrap/css/bootstrap.min.css" type="text/css">
@@ -40,18 +40,17 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a href="index.html" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> Dlapak</span></a>
+                            <a href="index.html" class="navbar-brand"><span class="logo"><i class="fa fa-recycle"></i> Khaanavali ಖಾನಾವಳಿ</span></a>
                         </div>
 
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="new-ads"><a href="account_create_post.html" class="btn btn-ads btn-block">Advertise</a></li>
+                                <!--li class="new-ads"><a href="account_create_post.html" class="btn btn-ads btn-block">Advertise</a></li-->
                                 <li><a href="signup.html">Signup</a></li>
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" href="#" data-toggle="dropdown"><strong class="caret"></strong>&nbsp;Pages</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="account_posts.html">My Ads</a></li>
-                                        <li><a href="account_create_post.html">Create Ads</a></li>
+                                        <li><a href="account_posts.html">My Orders</a></li>
                                         <li><a href="account_profile.html">My Profile</a></li>
                                     </ul>
                                 </li>
@@ -91,22 +90,22 @@
                 </header>
                 <section class="hero" >
                     <div class="container text-center">
-                        <h2 class="hero-title">Find an Awesome Things Here</h2>
-                        <p class="hero-description hidden-xs">Find all things you need on DLapak. We give you a simple way.</p>
+                        <h2 class="hero-title">Online Food Order</h2>
+                        <p class="hero-description hidden-xs">Find all food you need on DLapak. We give you a simple way.</p>
                         <div class="row hero-search-box">
                             <form>
-                                <div class="col-md-4 col-sm-4 search-input">
+                                <div class="col-md-5 col-sm-5 search-input">
                                     <input type="text" class="form-control input-lg search-first" placeholder="I'm feeling lucky...">
                                 </div>
-                                <div class="col-md-4 col-sm-4 search-input">
-                                            <select class="form-control input-lg search-second">
+                                <div class="col-md-5 col-sm-5 search-input">
+                                            <select class="form-control input-lg search-second" ng-model="search_city" >
                                                 <option selected="">All Location</option>
                                                 <option>Bangalore</option>
                                                 <option>Chennai</option>
-                                                <option>Hyderabad</option>
+                                                <option>qwe</option>
                                             </select>
                                 </div>
-                                <div class="col-md-4 col-sm-4 search-input">
+                                <div class="col-md-2 col-sm-2 search-input">
                                     <button class="btn btn-custom btn-block btn-lg"  ng-click="findRestaurants()">Find</button>
                                 </div>
                             </form>
@@ -125,16 +124,15 @@
                                     </div>
                                     <div class="widget-body">
                                         <ul class="trends">
-                                            <li><a href="#">Smartphone &nbsp;<span class="item-numbers">(2,342)</span></a></li>
-                                            <li><a href="#">Watch &amp; Jewelry &nbsp;<span class="item-numbers">(2,342)</span></a></li>
-                                            <li><a href="#">Clothes &nbsp;<span class="item-numbers">(2,342)</span></a></li>
-                                            <li><a href="#">Shoes &nbsp;<span class="item-numbers">(2,342)</span></a></li>
-                                            <li><a href="#">Music &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                            <li><a href="#">Northa Karnataks dishes &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                            <li><a href="#">South Karnataks dishes &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                            <li><a href="#">Idly/Dosa &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                            <li><a href="#">Biryani &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                                            <li><a href="#">North Indian &nbsp;<span class="item-numbers">(2,342)</span></a></li>
                                             <li><a href="#">Furniture &nbsp;<span class="item-numbers">(2,342)</span></a></li>
-                                            <li><a href="#">Photography &nbsp;<span class="item-numbers">(242)</span></a></li>
-                                            <li><a href="#">Web Development &nbsp;<span class="item-numbers">(2,342)</span></a></li>
+                      
                                         </ul>
-                                    </div>s
+                                    </div>
                                 </div>
                                 <div class="banner-widget">
                                     <img src="http://placehold.it/600x275" alt="banner" class="img-responsive">
@@ -153,10 +151,10 @@
 
                                           <a href="category.html"><p>veg north karnataka mess</p></a>
                                           <span class="total-items">25,366</span>
-                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="currentHotel($index)">Open Modal</button>
+                                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" ng-click="currentHotel($index)">Order</button>
                                         </div>
                                     </div>
-                                    
+
                                  </div>
                                 <!-- Modal -->
                                     <div id="myModal" class="modal fade" role="dialog">

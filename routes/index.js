@@ -10,11 +10,11 @@ router.get('/vendor', function (req, res) {
     res.render('index', { user : req.user });
 });
 router.get('/', function (req, res) {
-    res.render('customer', { user : req.user });
+    res.render('test', { user : req.user });
 });
 
 router.get('/test', function (req, res) {
-    res.render('test', { user : req.user });
+    res.render('customer', { user : req.user });
 });
 router.get('/menu', function (req, res) {
     res.render('menu', { user : req.user });
