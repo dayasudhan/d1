@@ -6,6 +6,19 @@ var VendorInfoModel = require('../models/vendorInfo');
 var router = express.Router();
 
 
+router.get('/p/vendor2', function (req, res) {
+    res.render('index2', { user : req.user });
+});
+
+router.get('/p/vendor3', function (req, res) {
+    res.render('index3', { user : req.user });
+});
+
+
+
+
+
+
 router.get('/vendor', function (req, res) {
     res.render('index', { user : req.user });
 });
