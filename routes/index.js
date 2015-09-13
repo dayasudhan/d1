@@ -14,6 +14,9 @@ router.get('/p/vendor3', function (req, res) {
     res.render('index3', { user : req.user });
 });
 
+router.get('/p/signin', function (req, res) {
+    res.render('starter', { user : req.user });
+});
 
 
 
@@ -106,7 +109,8 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/orders');
+       // res.redirect('/orders');
+       res.redirect('/p/vendor2');
     });
 });
 router.post('/m/login', passport.authenticate('local'), function(req, res, next) {
