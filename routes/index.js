@@ -7,12 +7,26 @@ var router = express.Router();
 
 
 router.get('/p/vendor2', function (req, res) {
-    res.render('index2', { user : req.user });
+    res.render('vendor_order', { user : req.user });
 });
 
 router.get('/p/vendor3', function (req, res) {
     res.render('index3', { user : req.user });
 });
+
+
+router.get('/p/vendor_order', function (req, res) {
+    res.render('vendor_order', { user : req.user });
+});
+
+router.get('/p/vendor_summary', function (req, res) {
+    res.render('vendor_order_summary', { user : req.user });
+});
+
+router.get('/p/vendor_menu', function (req, res) {
+    res.render('vendor_menu', { user : req.user });
+});
+
 
 router.get('/p/signin', function (req, res) {
     res.render('starter', { user : req.user });
