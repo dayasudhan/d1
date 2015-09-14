@@ -73,24 +73,26 @@ angular.module("vendorModule", [])
     };
   });
 
+  .controller("detailsController", function ($scope, $http, jsonFilter)
+  {
+       $scope.total2 = 123;
+      $scope.addDetails = function (param) {
+      console.log("addDetails");
+      var url = "/v1/vendor/order/";
+      url = url + param;
+      $http.post(url,)
+        .success(function (data, status, headers, config)
+        {
+          $scope.orderlist = data;
+          $scope.total2 = data.length;
+          $scope.getOrderSummary(param);
+          $scope.getMenuList(param);
+        })
+        .error(function (data, status, headers, config)
+        {
+          $scope.simpleGetCallResult = logResult("GET ERROR", data, status, headers, config);
+        });
+    };
+  });
 
-// function menu_add(form,username) {
-    
-   
-//      console.log("vendor.js  menu_add");
-//       console.log(form);
-//     var url = "/v1/vendor/menu/";
-//     var postData={fooditem:form.fooditem.value,foodprice:form.foodprice.value};
-//     url = url + username;
-//     console.log(url);
-//     $.post(url,
-//       postData,
-//       function(data, textStatus, jqXHR)
-//       {
-//        console.log(data)
-//       },"json").fail(function(jqXHR, textStatus, errorThrown) 
-//           {
-//     console.log(textStatus);
-//     console.log(errorThrown); 
-//       });
-// }
+

@@ -27,12 +27,18 @@ router.get('/p/vendor_menu', function (req, res) {
     res.render('vendor_menu', { user : req.user });
 });
 
+router.get('/p/vendor_details', function (req, res) {
+    res.render('vendor_details', { user : req.user });
+});
+
 
 router.get('/p/signin', function (req, res) {
     res.render('starter', { user : req.user });
 });
 
-
+router.get('/p/register', function(req, res) {
+    res.render('register2', { });
+});
 
 
 
@@ -70,14 +76,36 @@ router.get('/about_us', function (req, res) {
     res.render('about_us', { user : req.user });
 });
 
+// router.post('/register', function(req, res, next) {
+//   console.log(req.body.City);
+//     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+//         if (err) {
+//           return res.render("register", {info: "Sorry. That username already exists. Try again."});
+//         }
+//           console.log("aunthiticate 1");
+//           storeVendorInfo(req,res,function(req,res){
+//            console.log("aunthiticate 2");
+//         passport.authenticate('local')(req, res, function () {
+
+//             req.session.save(function (err) {
+//                 if (err) {
+//                     return next(err);
+//                 }
+//                 res.redirect('/orders');
+//             });
+//         });
+//       });
+//     });
+// });
 router.post('/register', function(req, res, next) {
-  console.log(req.body.City);
+  console.log("/register post method");
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         if (err) {
+          console.log("error register post method");
           return res.render("register", {info: "Sorry. That username already exists. Try again."});
         }
           console.log("aunthiticate 1");
-          storeVendorInfo(req,res,function(req,res){
+         // storeVendorInfo(req,res,function(req,res){
            console.log("aunthiticate 2");
         passport.authenticate('local')(req, res, function () {
 
@@ -85,10 +113,10 @@ router.post('/register', function(req, res, next) {
                 if (err) {
                     return next(err);
                 }
-                res.redirect('/orders');
+                res.redirect('/p/vendor_details');
             });
         });
-      });
+    // });
     });
 });
 function storeVendorInfo(request,response,callback)
@@ -124,7 +152,7 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
             return next(err);
         }
        // res.redirect('/orders');
-       res.redirect('/p/vendor2');
+       res.redirect('/p/vendor_order');
     });
 });
 router.post('/m/login', passport.authenticate('local'), function(req, res, next) {
@@ -154,7 +182,7 @@ router.get('/logout', function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/');
+        res.redirect('/p/signin');
     });
 });
 

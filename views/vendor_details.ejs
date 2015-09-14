@@ -167,41 +167,7 @@
         <section class="content">
           <div class="row">
 
-            <div class="col-xs-8">
-              <div class="box">
-                <div class="box-header">
-                  <h3 class="box-title">Data Table With Full Features</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-                  <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                      <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr ng-repeat="menu in menuList">
-                        <td>{{menu._id}}</td>
-                        <td>{{menu.name}}</td>
-                        <td>{{menu.price}}</td>
-
-                      </tr>
-          
-                    </tbody>
-                    <tfoot>
-                      <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div><!-- /.box-body -->
-              </div><!-- /.box -->
-            </div><!-- /.col -->
-              <div class="col-xs-4">
+              <div class="col-xs-8">
 <!-- Horizontal Form -->
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -211,21 +177,80 @@
                 <form class="form-horizontal">
                   <div class="box-body">
                     <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-2 control-label">ItemName</label>
+                      <label for="inputEmail3"  class="col-sm-2 control-label">Name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="fooditem" placeholder="ItemName" ng-model = "fooditem">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="inputPassword3" class="col-sm-2 control-label">Price</label>
-                      <div class="col-sm-10">
-                        <input type="number" class="form-control" name="foodprice" placeholder="ItemPrice"  ng-model = "foodprice">
+                        <input type="text" class="form-control"  name="Name"  placeholder={{hotelName}} ng-model = "hotelName">
                       </div>
                     </div>
 
+                    <div class="form-group">
+                      <label for="inputEmail3"  class="col-sm-2 control-label">Speciality</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control"  name="Speciality"  placeholder="ItemName" ng-model = "speciality">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3"  class="col-sm-2 control-label">Veg/Non Veg</label>
+                      <div class="col-sm-10">
+                          <select class="form-control select2" style="width: 100%;" ng-model = "vegornonveg">
+                             <option>Vegetarain</option>
+                            <option>Non Vegetarain</option>
+
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3"  class="col-sm-2 control-label">phone</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control"  name="phone" placeholder="ItemName" ng-model = "hotelphone">
+                      </div>
+                    </div>
+                                        <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Address1</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control"  name="Address1" placeholder={{hotelName}} ng-model = "hotelAddress1">
+                      </div>
+                    </div>
+                                        <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Areaname</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="Areaname" placeholder="ItemName" ng-model = "hotelAreaname">
+                      </div>
+                    </div>
+                                        <div class="form-group">
+                      <label for="inputEmail3"name="Landmark" class="col-sm-2 control-label">Landmark</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control"  name="Landmark" placeholder="ItemName" ng-model = "hotelLandmark">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3"name="City"  class="col-sm-2 control-label">City</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="City" placeholder="ItemName" ng-model = "hotelCity">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3"name="City"  class="col-sm-2 control-label">latitude</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="latitude" placeholder="ItemName" ng-model = "latitude">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3"name="City"  class="col-sm-2 control-label">logitude</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="longitude" placeholder="ItemName" ng-model = "logitude">
+                      </div>
+                    </div>
+                   
+                    <div class="form-group">
+                      <label for="exampleInputFile" class="col-sm-2 control-label">Logo</label>
+                      <div class="col-sm-10">
+                        <input type="file" id="logoinputfile">
+                      </div>
+                    </div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-info pull-right" ng-click= "addMenu(this.form,'<%= user.username %>')">Add Item</button>
+                    <button type="submit" class="btn btn-info pull-right" ng-click= "addDetails(this.form,'<%= user.username %>')">Add Item</button>
 
                      <!--button type="submit" class="btn btn-default" onclick="menu_add(this.form,'<%= user.username %>')">Submit</button>&nbsp;<a href="/"-->
                   </div><!-- /.box-footer -->
