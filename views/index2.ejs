@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title>Khaanavali</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -19,7 +19,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
-
+<link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -30,9 +30,9 @@
         <script src="/javascripts/vendor2.js"></script>
   </head>
   <body class="hold-transition skin-blue sidebar-mini"  ng-app="vendorModule">
-    <div class="wrapper" >
+    <div class="wrapper" ng-controller="mainController">
 
-      <header class="main-header">
+      <header class="main-header" data-ng-init="getOrders('<%= user.username %>')">
 
         <!-- Logo -->
         <a href="index2.html" class="logo">
@@ -131,7 +131,7 @@
               <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell-o"></i>
-                  <span class="label label-warning">10</span>
+                  <span class="label label-warning">{{total2}}</span>
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header">You have 10 notifications</li>
@@ -409,15 +409,10 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
 
-          
-
           <!-- Main row -->
-          <div class="row" ng-controller="mainController">
+          <div class="row" >
             <!-- Left col -->
             <div class="col-md-12">
-
-            
-
               <!-- TABLE: LATEST ORDERS -->
               <div class="box box-info">
                 <div class="box-header with-border">
@@ -427,87 +422,17 @@
                     <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                   </div>
                 </div><!-- /.box-header -->
-                <div class="box-body">
-                  <div class="table-responsive">
-                    <table class="table no-margin" data-ng-init="getOrders('<%= user.username %>')">
-                      <thead>
-                        <tr>
-                          <th>Order ID</th>
-                          <th>Name</th>
-                          <th>Phone</th>
-                          <th>Status</th>
-                          <th>Item</th>
-                          <th>Quantity</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        
-                        <tr ng-repeat="order in orderlist">
-                       
-                          <td><a href="/pages/examples/invoice.html">{{order._id}}</a></td>
-                          <td>{{order.customer.name}}</td>
-                          <td>{{order.customer.phone}}</td>
-                          <td><span class="label label-success">Shipped</span></td>
-                          <td>{{order.menu[0].name}}</td>
-                          <td>{{order.menu[0].no_of_order}}</td>
-
-                            <!--tr ng-repeat="item in order.menu}}">
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td></td>
-                              <td>{{item.name}}</td>
-                              <td>{{item.no_of_order}}</td>
-                          </tr-->
-                          </tr>
-                        <!--tr>
-                          <td><a href="/pages/examples/invoice.html">OR1848</a></td>
-                          <td>Samsung Smart TV</td>
-                          <td><span class="label label-warning">Pending</span></td>
-                          <td><div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div></td>
-                        </tr>
-                        <tr>
-                          <td><a href="/pages/examples/invoice.html">OR7429</a></td>
-                          <td>iPhone 6 Plus</td>
-                          <td><span class="label label-danger">Delivered</span></td>
-                          <td><div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div></td>
-                        </tr>
-                        <tr>
-                          <td><a href="/pages/examples/invoice.html">OR7429</a></td>
-                          <td>Samsung Smart TV</td>
-                          <td><span class="label label-info">Processing</span></td>
-                          <td><div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div></td>
-                        </tr>
-                        <tr>
-                          <td><a href="/pages/examples/invoice.html">OR1848</a></td>
-                          <td>Samsung Smart TV</td>
-                          <td><span class="label label-warning">Pending</span></td>
-                          <td><div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div></td>
-                        </tr>
-                        <tr>
-                          <td><a href="/pages/examples/invoice.html">OR7429</a></td>
-                          <td>iPhone 6 Plus</td>
-                          <td><span class="label label-danger">Delivered</span></td>
-                          <td><div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div></td>
-                        </tr>
-                        <tr>
-                          <td><a href="/pages/examples/invoice.html">OR9842</a></td>
-                          <td>Call of Duty IV</td>
-                          <td><span class="label label-success">Shipped</span></td>
-                          <td><div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div></td>
-                        </tr-->
-                      </tbody>
-                    </table>
-                  </div><!-- /.table-responsive -->
-                </div><!-- /.box-body -->
+                    <tr>
+                      <td>
+                   <% include order2_item.ejs %>
+                  </td>
+                  </tr>
                 <div class="box-footer clearfix">
                   <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
                   <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
                 </div><!-- /.box-footer -->
               </div><!-- /.box -->
             </div><!-- /.col -->
-
-
           </div><!-- /.row -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
