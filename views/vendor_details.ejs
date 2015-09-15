@@ -29,7 +29,7 @@
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="vendorModule">
-    <div class="wrapper"  ng-controller="mainController">
+    <div class="wrapper"  ng-controller="DetailsController">
 
       <header class="main-header" data-ng-init="getOrders('<%= user.username %>')"  >
         <!-- Logo -->
@@ -141,6 +141,7 @@
             <li><a href="/p/vendor_order"><i class="fa fa-circle-o text-red"></i> <span>Order List</span></a></li>
             <li><a href="/p/vendor_summary"><i class="fa fa-circle-o text-yellow"></i> <span>Order summary</span></a></li>
             <li><a href="/p/vendor_menu"><i class="fa fa-circle-o text-aqua"></i> <span>Menu</span></a></li>
+                    <li><a href="/p/vendor_details"><i class="fa fa-circle-o text-aqua"></i> <span>About Me</span></a></li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -179,20 +180,20 @@
                     <div class="form-group">
                       <label for="inputEmail3"  class="col-sm-2 control-label">Name</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control"  name="Name"  placeholder={{hotelName}} ng-model = "hotelName">
+                        <input type="text" class="form-control"  name="Name"  placeholder={{hotelName}} ng-model = "hotelName" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <label for="inputEmail3"  class="col-sm-2 control-label">Speciality</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control"  name="Speciality"  placeholder="ItemName" ng-model = "speciality">
+                        <input type="text" class="form-control"  name="Speciality"  placeholder="ItemName" ng-model = "speciality" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="inputEmail3"  class="col-sm-2 control-label">Veg/Non Veg</label>
                       <div class="col-sm-10">
-                          <select class="form-control select2" style="width: 100%;" ng-model = "vegornonveg">
+                          <select class="form-control select2" style="width: 100%;" ng-model = "vegornonveg" required>
                              <option>Vegetarain</option>
                             <option>Non Vegetarain</option>
 
@@ -202,22 +203,53 @@
                     <div class="form-group">
                       <label for="inputEmail3"  class="col-sm-2 control-label">phone</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control"  name="phone" placeholder="ItemName" ng-model = "hotelphone">
+                        <input type="text" class="form-control"  name="phone" placeholder="ItemName" ng-model = "hotelphone" required>
                       </div>
                     </div>
-                                        <div class="form-group">
+                    <div class="form-group">
+                      <label for="inputdeliverrange"  class="col-sm-2 control-label">Deliver Range in KM's</label>
+                      <div class="col-sm-10">
+                        <input type="number" class="form-control"  name="phone" placeholder="Deliver Range" ng-model = "deliverrange" required>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="inputdeliverareas"  class="col-sm-2 control-label">Deliver Areas Covered</label>
+                      <div class="col-sm-10">
+                          <select multiple class="form-control select2" style="width: 100%;" ng-model = "deliverareas" required>
+                            <option>VijayNagar</option>
+                            <option>RajajiNagar</option>
+                            <option>Malleshwaram</option>  
+                          </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
                       <label for="inputEmail3" class="col-sm-2 control-label">Address1</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control"  name="Address1" placeholder={{hotelName}} ng-model = "hotelAddress1">
                       </div>
                     </div>
-                                        <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-2 control-label">Areaname</label>
+                    <!--div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Address2</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="Areaname" placeholder="ItemName" ng-model = "hotelAreaname">
+                        <input type="text" class="form-control"  name="Address1" placeholder={{hotelName}} ng-model = "hotelAddress2">
                       </div>
                     </div>
-                                        <div class="form-group">
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Street</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control"  name="street" placeholder={{hotelName}} ng-model = "hotelStreet">
+                      </div>
+                    </div-->
+
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">Areaname</label>
+                      <div class="col-sm-10">
+                        <input type="text" class="form-control" name="Areaname" placeholder="ItemName" ng-model = "hotelAreaname" required>
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <label for="inputEmail3"name="Landmark" class="col-sm-2 control-label">Landmark</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control"  name="Landmark" placeholder="ItemName" ng-model = "hotelLandmark">
@@ -226,19 +258,29 @@
                     <div class="form-group">
                       <label for="inputEmail3"name="City"  class="col-sm-2 control-label">City</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="City" placeholder="ItemName" ng-model = "hotelCity">
+                       <select  class="form-control select2" style="width: 100%;" ng-model = "hotelcity" required>
+                            <option  selected>Bangalore</option>
+                            <option>Chennai</option>
+                            <option>Shivamogga</option>  
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputEmail3" class="col-sm-2 control-label">zip</label>
+                      <div class="col-sm-10">
+                        <input type="Number" class="form-control"  name="zip" placeholder={{hotelName}} ng-model = "hotelzip" required>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputEmail3"name="City"  class="col-sm-2 control-label">latitude</label>
+                      <label for="inputEmail3" name="latitude"  class="col-sm-2 control-label">latitude</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="latitude" placeholder="ItemName" ng-model = "latitude">
+                        <input type="text" class="form-control" name="latitude" placeholder="ItemName" ng-model = "latitude" required>
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputEmail3"name="City"  class="col-sm-2 control-label">logitude</label>
+                      <label for="inputEmail3"name="longitude"  class="col-sm-2 control-label">logitude</label>
                       <div class="col-sm-10">
-                        <input type="text" class="form-control" name="longitude" placeholder="ItemName" ng-model = "logitude">
+                        <input type="text" class="form-control" name="longitude" placeholder="ItemName" ng-model = "longitude">
                       </div>
                     </div>
                    
@@ -250,7 +292,7 @@
                     </div>
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-info pull-right" ng-click= "addDetails(this.form,'<%= user.username %>')">Add Item</button>
+                    <button type="submit" class="btn btn-info pull-right" ng-click= "addDetails('<%= user.username %>')">Submit</button>
 
                      <!--button type="submit" class="btn btn-default" onclick="menu_add(this.form,'<%= user.username %>')">Submit</button>&nbsp;<a href="/"-->
                   </div><!-- /.box-footer -->

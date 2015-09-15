@@ -1,5 +1,5 @@
-angular.module("vendorModule", [])
-  .controller("mainController", function ($scope, $http, jsonFilter)
+app = angular.module("vendorModule", []);
+  app.controller("mainController", function ($scope, $http, jsonFilter)
   {
   		 $scope.total2 = 123;
   	  $scope.getOrders = function (param) {
@@ -73,24 +73,26 @@ angular.module("vendorModule", [])
     };
   });
 
-  .controller("detailsController", function ($scope, $http, jsonFilter)
+  app.controller("DetailsController", function ($scope, $http, jsonFilter)
   {
        $scope.total2 = 123;
       $scope.addDetails = function (param) {
-      console.log("addDetails");
-      var url = "/v1/vendor/order/";
+      console.log("addDetails 1");
+      console.log($scope.deliverareas);
+      var url = "/v1/vendor/info/";
       url = url + param;
-      $http.post(url,)
+      var postData={Name:$scope.hotelName, username: param, Address1:$scope.hotelAddress1, phone:$scope.hotelphone,
+        Address2:"", street :"",Landmark:$scope.hotelLandmark, Areaname:$scope.hotelAreaname, 
+        City:$scope.hotelcity, zip:$scope.hotelzip,latitude:$scope.latitude, longitude:$scope.longitude, logo:"",
+         vegornonveg:$scope.vegornonveg, speciality: $scope.speciality , deliverrange:$scope.deliverrange,deliverareas:$scope.deliverareas};
+      $http.post(url,postData)
         .success(function (data, status, headers, config)
         {
-          $scope.orderlist = data;
-          $scope.total2 = data.length;
-          $scope.getOrderSummary(param);
-          $scope.getMenuList(param);
+            console.log("addDetails success");
         })
         .error(function (data, status, headers, config)
         {
-          $scope.simpleGetCallResult = logResult("GET ERROR", data, status, headers, config);
+          console.log("addDetails error");
         });
     };
   });

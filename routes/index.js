@@ -105,29 +105,70 @@ router.post('/register', function(req, res, next) {
           return res.render("register", {info: "Sorry. That username already exists. Try again."});
         }
           console.log("aunthiticate 1");
-         // storeVendorInfo(req,res,function(req,res){
-           console.log("aunthiticate 2");
-        passport.authenticate('local')(req, res, function () {
-
-            req.session.save(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                res.redirect('/p/vendor_details');
-            });
-        });
-    // });
-    });
-});
-function storeVendorInfo(request,response,callback)
-{
-console.log("storeVendorInfo");
- var vendorInfo = new VendorInfoModel({
-        hotel:{name:request.body.Name,email:request.body.username},
-       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, latitude:123,longitude:321 },
-        phone:request.body.phone 
+           var vendorInfo = new VendorInfoModel({
+        hotel:{email:req.body.username}
       });
       vendorInfo.save( function( err ) {
+        if( !err ) {
+              console.log( 'storeVendorInfo created' );
+              console.log(req.body.username);
+              passport.authenticate('local')(req, res, function () {
+                  req.session.save(function (err) {
+                    if (err) {
+                      return next(err);
+                    }
+                    res.redirect('/p/vendor_details');
+                  });
+              });
+              return ;
+              } else {
+                console.log( 'storeVendorInfo error' );
+                console.log( err );
+                return response.send('ERROR');
+              }
+        });
+    });
+});
+router.post( '/v1/vendor/info/:id', function( req, res ) {
+
+   console.log("VendorInfo post");
+  console.log(req.body.Name);
+            storeVendorInfo(req,res,function(req,res){
+           console.log("storeVendorInfo success");
+           console.log(res);
+        });
+
+  });
+function storeVendorInfo(request,response,callback,param)
+{
+console.log("storeVendorInfo");
+console.log(request.params.id);
+ // var vendorInfo = new VendorInfoModel({
+ //        hotel:{name:request.body.Name,email:request.body.username},
+ //       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, 
+ //        latitude:request.body.latitude,longitude:request.body.longitude },
+ //        phone:request.body.phone ,
+ //        logo:request.body.logo,
+ //        speciality:request.body.speciality,
+ //        vegornonveg:request.body.vegornonveg,
+ //        deliverRange: request.body.deliverrange,
+ //        deliverAreas:request.body.deliverareas
+ //      });
+ VendorInfoModel.update({ 'hotel.email':request.params.id},
+      {
+        hotel:{name:request.body.Name,email:request.params.id},
+       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,
+        street:request.body.street, LandMark:request.body.Landmark, 
+        areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, 
+        latitude:request.body.latitude,longitude:request.body.longitude },
+        phone:request.body.phone ,
+        logo:request.body.logo,
+        speciality:request.body.speciality,
+        vegornonveg:request.body.vegornonveg,
+        deliverRange: request.body.deliverrange
+        //deliverAreas:request.body.deliverareas
+      },
+       function( err ) {
         if( !err ) {
             console.log( 'storeVendorInfo created' );
             callback(request,response);
