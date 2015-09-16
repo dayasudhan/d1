@@ -29,9 +29,9 @@
     <![endif]-->
   </head>
   <body class="hold-transition skin-blue sidebar-mini" ng-app="vendorModule">
-    <div class="wrapper"  ng-controller="mainController">
+    <div class="wrapper"  ng-controller="menuController">
 
-      <header class="main-header" data-ng-init="getOrders('<%= user.username %>')"  >
+      <header class="main-header" data-ng-init="getMenuList('<%= user.username %>')"  >
         <!-- Logo -->
         <a href="../../index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -149,18 +149,7 @@
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            Data Tables
-            <small>advanced tables</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#">Tables</a></li>
-            <li class="active">Data tables</li>
-          </ol>
-        </section>
+        
 
 
 
@@ -171,31 +160,34 @@
             <div class="col-xs-8">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Data Table With Full Features</h3>
+                  <h3 class="box-title">Menu Table</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <table id="example1" class="table table-bordered table-striped">
                     <thead>
                       <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
+                        <th>Serial No</th>
+                        <th>ItemName</th>
+                        <th>ItemPrice</th>
+                        <th>Delete</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr ng-repeat="menu in menuList">
-                        <td>{{menu._id}}</td>
+                        <td>{{$index +1}}</td>
                         <td>{{menu.name}}</td>
                         <td>{{menu.price}}</td>
+                        <td><input type="checkbox" name="myTextEditBox" value="checked"></td>
 
                       </tr>
           
                     </tbody>
                     <tfoot>
-                      <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
+                        <tr>
+                        <th>Serial No</th>
+                        <th>ItemName</th>
+                        <th>ItemPrice</th>
+                        <th>Delete</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -212,13 +204,13 @@
                 <form class="form-horizontal">
                   <div class="box-body">
                     <div class="form-group">
-                      <label for="inputEmail3" class="col-sm-2 control-label">ItemName</label>
+                      <label for="inputEmail3" class="col-sm-3 control-label">ItemName</label>
                       <div class="col-sm-10">
                         <input type="text" class="form-control" name="fooditem" placeholder="ItemName" ng-model = "fooditem">
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="inputPassword3" class="col-sm-2 control-label">Price</label>
+                      <label for="inputPassword3" class="col-sm-3 control-label">Price</label>
                       <div class="col-sm-10">
                         <input type="number" class="form-control" name="foodprice" placeholder="ItemPrice"  ng-model = "foodprice">
                       </div>
@@ -226,7 +218,7 @@
 
                   </div><!-- /.box-body -->
                   <div class="box-footer">
-                    <button type="submit" class="btn btn-info pull-right" ng-click= "addMenu(this.form,'<%= user.username %>')">Add Item</button>
+                    <button type="submit" class="btn btn-info pull-right" ng-click= "addMenu('<%= user.username %>')">Add Item</button>
 
                      <!--button type="submit" class="btn btn-default" onclick="menu_add(this.form,'<%= user.username %>')">Submit</button>&nbsp;<a href="/"-->
                   </div><!-- /.box-footer -->

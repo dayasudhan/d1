@@ -143,17 +143,6 @@ function storeVendorInfo(request,response,callback,param)
 {
 console.log("storeVendorInfo");
 console.log(request.params.id);
- // var vendorInfo = new VendorInfoModel({
- //        hotel:{name:request.body.Name,email:request.body.username},
- //       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, 
- //        latitude:request.body.latitude,longitude:request.body.longitude },
- //        phone:request.body.phone ,
- //        logo:request.body.logo,
- //        speciality:request.body.speciality,
- //        vegornonveg:request.body.vegornonveg,
- //        deliverRange: request.body.deliverrange,
- //        deliverAreas:request.body.deliverareas
- //      });
  VendorInfoModel.update({ 'hotel.email':request.params.id},
       {
         hotel:{name:request.body.Name,email:request.params.id},
@@ -426,7 +415,7 @@ router.post( '/v1/vendor/menu/:id', function( request, response ) {
         if( !err ) {
             console.log("no error");
             console.log(order);
-            return response.send( order );
+            //return response.send( order );
         } else {
             console.log( err );
             return response.send('ERROR');

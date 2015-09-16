@@ -24,7 +24,7 @@ app = angular.module("vendorModule", []);
     $scope.getOrderSummary = function (param) {
       console.log("getOrdersummary");
       var url2 = "/v1/vendor/order/summary/";
-      url2 = url2 + "x@gmail.com";
+      url2 = url2 + param;
       $http.get(url2)
         .success(function (data, status, headers, config)
         {
@@ -37,10 +37,15 @@ app = angular.module("vendorModule", []);
         });
     };
 
-    $scope.getMenuList = function (param) {
-      console.log("getOrdersummary");
+   
+  });
+
+  app.controller("menuController", function ($scope, $http, jsonFilter)
+  {
+ $scope.getMenuList = function (param) {
+      console.log("getmenulist");
       var url3 = "/v1/vendor/menu/";
-      url3 = url3 + "x@gmail.com";
+      url3 = url3 + param;
       $http.get(url3)
         .success(function (data, status, headers, config)
         {
@@ -53,29 +58,30 @@ app = angular.module("vendorModule", []);
         });
     };
 
-    $scope.addMenu = function (form,param) {
+    $scope.addMenu = function (param) {
       console.log("addMenu");
        console.log( $scope.fooditem);
       var url4 = "/v1/vendor/menu/";
-      url4 = url4 + "y@gmail.com";
+      url4 = url4 + param;
       var postData={fooditem:$scope.fooditem,foodprice:$scope.foodprice};
-      $http.get(url4,postData)
+      $http.post(url4,postData)
         .success(function (data, status, headers, config)
         {
            console.log("success add");
            console.log(data);
-          
         })
         .error(function (data, status, headers, config)
         {
-          $scope.simpleGetCallResult = logResult("GET ERROR", data, status, headers, config);
+           getMenuList(param);
+          console.log("errod on add");
+          console.log(status);
+          console.log(data);
         });
+         $scope.getMenuList(param);
     };
   });
-
   app.controller("DetailsController", function ($scope, $http, jsonFilter)
   {
-       $scope.total2 = 123;
       $scope.addDetails = function (param) {
       console.log("addDetails 1");
       console.log($scope.deliverareas);
