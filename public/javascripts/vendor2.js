@@ -12,7 +12,7 @@ app = angular.module("vendorModule", []);
           $scope.orderlist = data;
           $scope.total2 = data.length;
           $scope.getOrderSummary(param);
-          $scope.getMenuList(param);
+          // $scope.getMenuList(param);
         })
         .error(function (data, status, headers, config)
         {
