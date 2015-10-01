@@ -6,6 +6,42 @@ var VendorInfoModel = require('../models/vendorInfo');
 var router = express.Router();
 
 
+router.get('/p/vendor2', function (req, res) {
+    res.render('vendor_order', { user : req.user });
+});
+
+router.get('/p/vendor3', function (req, res) {
+    res.render('index3', { user : req.user });
+});
+
+
+router.get('/p/vendor_order', function (req, res) {
+    res.render('vendor_order', { user : req.user });
+});
+
+router.get('/p/vendor_summary', function (req, res) {
+    res.render('vendor_order_summary', { user : req.user });
+});
+
+router.get('/p/vendor_menu', function (req, res) {
+    res.render('vendor_menu', { user : req.user });
+});
+
+router.get('/p/vendor_details', function (req, res) {
+    res.render('vendor_details', { user : req.user });
+});
+
+
+router.get('/p/signin', function (req, res) {
+    res.render('starter', { user : req.user });
+});
+
+router.get('/p/register', function(req, res) {
+    res.render('register2', { });
+});
+
+
+
 router.get('/vendor', function (req, res) {
     res.render('index', { user : req.user });
 });
@@ -40,36 +76,88 @@ router.get('/about_us', function (req, res) {
     res.render('about_us', { user : req.user });
 });
 
+// router.post('/register', function(req, res, next) {
+//   console.log(req.body.City);
+//     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+//         if (err) {
+//           return res.render("register", {info: "Sorry. That username already exists. Try again."});
+//         }
+//           console.log("aunthiticate 1");
+//           storeVendorInfo(req,res,function(req,res){
+//            console.log("aunthiticate 2");
+//         passport.authenticate('local')(req, res, function () {
+
+//             req.session.save(function (err) {
+//                 if (err) {
+//                     return next(err);
+//                 }
+//                 res.redirect('/orders');
+//             });
+//         });
+//       });
+//     });
+// });
 router.post('/register', function(req, res, next) {
-  console.log(req.body.City);
+  console.log("/register post method");
     Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
         if (err) {
+          console.log("error register post method");
           return res.render("register", {info: "Sorry. That username already exists. Try again."});
         }
           console.log("aunthiticate 1");
-          storeVendorInfo(req,res,function(req,res){
-           console.log("aunthiticate 2");
-        passport.authenticate('local')(req, res, function () {
-
-            req.session.save(function (err) {
-                if (err) {
-                    return next(err);
-                }
-                res.redirect('/orders');
-            });
-        });
-      });
-    });
-});
-function storeVendorInfo(request,response,callback)
-{
-console.log("storeVendorInfo");
- var vendorInfo = new VendorInfoModel({
-        hotel:{name:request.body.Name,email:request.body.username},
-       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,street:request.body.street, LandMark:request.body.Landmark, areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, latitude:123,longitude:321 },
-        phone:request.body.phone 
+           var vendorInfo = new VendorInfoModel({
+        hotel:{email:req.body.username}
       });
       vendorInfo.save( function( err ) {
+        if( !err ) {
+              console.log( 'storeVendorInfo created' );
+              console.log(req.body.username);
+              passport.authenticate('local')(req, res, function () {
+                  req.session.save(function (err) {
+                    if (err) {
+                      return next(err);
+                    }
+                    res.redirect('/p/vendor_details');
+                  });
+              });
+              return ;
+              } else {
+                console.log( 'storeVendorInfo error' );
+                console.log( err );
+                return response.send('ERROR');
+              }
+        });
+    });
+});
+router.post( '/v1/vendor/info/:id', function( req, res ) {
+
+   console.log("VendorInfo post");
+  console.log(req.body.Name);
+            storeVendorInfo(req,res,function(req,res){
+           console.log("storeVendorInfo success");
+           console.log(res);
+        });
+
+  });
+function storeVendorInfo(request,response,callback,param)
+{
+console.log("storeVendorInfo");
+console.log(request.params.id);
+ VendorInfoModel.update({ 'hotel.email':request.params.id},
+      {
+        hotel:{name:request.body.Name,email:request.params.id},
+       address:{addressLine1:request.body.Address1,addressLine2:request.body.Address2,
+        street:request.body.street, LandMark:request.body.Landmark, 
+        areaName:request.body.Areaname,city:request.body.City, zip:request.body.zip, 
+        latitude:request.body.latitude,longitude:request.body.longitude },
+        phone:request.body.phone ,
+        logo:request.body.logo,
+        speciality:request.body.speciality,
+        vegornonveg:request.body.vegornonveg,
+        deliverRange: request.body.deliverrange
+        //deliverAreas:request.body.deliverareas
+      },
+       function( err ) {
         if( !err ) {
             console.log( 'storeVendorInfo created' );
             callback(request,response);
@@ -93,7 +181,8 @@ router.post('/login', passport.authenticate('local'), function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/orders');
+       // res.redirect('/orders');
+       res.redirect('/p/vendor_order');
     });
 });
 router.post('/m/login', passport.authenticate('local'), function(req, res, next) {
@@ -123,7 +212,7 @@ router.get('/logout', function(req, res, next) {
         if (err) {
             return next(err);
         }
-        res.redirect('/');
+        res.redirect('/p/signin');
     });
 });
 
@@ -326,7 +415,7 @@ router.post( '/v1/vendor/menu/:id', function( request, response ) {
         if( !err ) {
             console.log("no error");
             console.log(order);
-            return response.send( order );
+            //return response.send( order );
         } else {
             console.log( err );
             return response.send('ERROR');

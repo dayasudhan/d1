@@ -1,0 +1,13 @@
+[1mdiff --git a/models/vendorOrder.js b/models/vendorOrder.js[m
+[1mindex 490764b..2f87793 100644[m
+[1m--- a/models/vendorOrder.js[m
+[1m+++ b/models/vendorOrder.js[m
+[36m@@ -2,7 +2,7 @@[m [mvar mongoose = require('mongoose');[m
+ //Schema[m
+ var OrderSchema = new mongoose.Schema({[m
+ 	hotel:{name:String,email: String},[m
+[31m-    menu:{        name: String,        no_of_order:Number    },[m
+[32m+[m[32m    menu:[{name: String,no_of_order:Number}],[m
+     customer:{        name: String,        phone: Number,        email: String,        [m
+         address:{addressLine1:String,addressLine2:String,street:String, LandMark:String, areaName:String,city:String, zip:String, latitude:Number,longitude:Number }[m
+     }[m
